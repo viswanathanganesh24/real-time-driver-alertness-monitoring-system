@@ -1,6 +1,6 @@
 # Real-Time Driver Alertness Monitoring System
 
-Driving tired is dangerous, plain and simple. Even a few seconds of micro-sleep at highway speeds can lead to a catastrophe. This project is a practical attempt to tackle that problem head-on. It uses a standard webcam and some clever computer vision tricks to keep an eye on the driver's face. If it spots signs of sleepiness, like drooping eyelids or a head that's turned away—it sounds a loud buzzer to snap the driver back to attention before things go wrong.
+Driving tired is dangerous, plain and simple. Even a few seconds of micro-sleep at highway speeds can lead to a catastrophe. This project is a practical attempt to tackle that problem head-on. It uses a standard webcam and some clever computer vision tricks to keep an eye on the driver's face. If it spots signs of sleepiness, like drooping eyelids or a head that's turned away, it sounds a loud buzzer to snap the driver back to attention before things go wrong.
 
 ---
 
@@ -8,7 +8,7 @@ Driving tired is dangerous, plain and simple. Even a few seconds of micro-sleep 
 
 You've probably heard the stats before. The National Highway Traffic Safety Administration estimates that drowsy driving is a factor in roughly 100,000 police-reported crashes every year in the U.S. alone. Those incidents result in over 1,500 deaths and tens of thousands of injuries. 
 
-The tricky part? Many drowsy-driving cases fly under the radar because it's almost impossible to prove fatigue after a crash happens. That gap between what gets reported and what actually happens—is exactly what this project aims to address. A simple, always-on monitor could make a real dent in those numbers.
+The tricky part? Many drowsy-driving cases fly under the radar because it's almost impossible to prove fatigue after a crash happens. That gap between what gets reported and what actually happens, is exactly what this project aims to address. A simple, always-on monitor could make a real dent in those numbers.
 
 ---
 
@@ -91,4 +91,4 @@ Here's what happens inside the main processing loop, frame by frame:
 
 ## Final Note
 
-This project isn't meant to replace proper rest or safe driving habits—but it can serve as an extra layer of safety for long hauls or late-night drives. Feel free to fork it, tweak it, and make it your own.
+This project isn't meant to replace proper rest or safe driving habits, but it can serve as an extra layer of safety for long hauls or late-night drives. Feel free to fork it, tweak it, and make it your own.
