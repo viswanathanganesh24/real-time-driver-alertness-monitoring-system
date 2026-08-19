@@ -75,7 +75,7 @@ Here's what happens inside the main processing loop, frame by frame:
 
 1. **Grab a frame** – The system pulls a live feed from the default camera.
 
-2. **Look for a face** – A Haar cascade classifier scans the frame. If no face is found, the driver is either turned away or distracted—so the buzzer goes off immediately.
+2. **Look for a face** – A Haar cascade classifier scans the frame. If no face is found, the driver is either turned away or distracted, so the buzzer goes off immediately.
 
 3. **Zoom in on the eyes** – Once a face is locked, the system runs a second Haar cascade to locate the eye regions within that face crop.
 
