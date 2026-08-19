@@ -1,71 +1,94 @@
-# Real-Time-Drowsiness-Detection-System
+# Real-Time Driver Alertness Monitoring System
 
-Drowsiness detection is a safety technology that can prevent accidents that are caused by drivers who fell asleep while driving. The objective of this project is to build a drowsiness detection system that will detect drowsiness through the implementation of computer vision system that automatically detects drowsiness in real-time from a live video stream and then alert the user with an alarm notification.
+Driving tired is dangerous, plain and simple. Even a few seconds of micro-sleep at highway speeds can lead to a catastrophe. This project is a practical attempt to tackle that problem head-on. It uses a standard webcam and some clever computer vision tricks to keep an eye on the driver's face. If it spots signs of sleepiness—like drooping eyelids or a head that's turned away—it sounds a loud buzzer to snap the driver back to attention before things go wrong.
 
-## Motivation 
-According to the National Highway Traffic Safety Administration, every year about 100,000 police-reported crashes involve drowsy driving. These crashes result in more than 1,550 fatalities and 71,000 injuries. The real number may be much higher, however, as it is difficult to determine whether a driver was drowsy at the time of a crash. So, we tried to build a system, that detects whether a person is drowsy and alert him.
+---
 
-## Built With
+## Why This Exists
 
-* [OpenCV Library](https://opencv.org/) - Most used computer vision library. Highly efficient. Facilitates real-time image processing.
-* [imutils library](https://github.com/jrosebr1/imutils) -  A collection of helper functions and utilities to make working with OpenCV easier.
-* [Dlib library](http://dlib.net/) - Implementations of state-of-the-art CV and ML algorithms (including face recognition).
-* [scikit-learn library](https://scikit-learn.org/stable/) - Machine learning in Python. Simple. Efficient. Beautiful, easy to use API.
-* [Numpy](http://www.numpy.org/) - NumPy is the fundamental package for scientific computing with Python. 
+You've probably heard the stats before. The National Highway Traffic Safety Administration estimates that drowsy driving is a factor in roughly 100,000 police-reported crashes every year in the U.S. alone. Those incidents result in over 1,500 deaths and tens of thousands of injuries. 
 
+The tricky part? Many drowsy-driving cases fly under the radar because it's almost impossible to prove fatigue after a crash happens. That gap—between what gets reported and what actually happens—is exactly what this project aims to address. A simple, always-on monitor could make a real dent in those numbers.
 
-## Running the application
+---
 
-1. Clone the repository. 
+## Tools We Used
 
-    ```
-    git clone https://github.com/viswanathanganesh24/real-time-driver-alertness-monitoring-system.git
-    ```
- 
-1. (Optional) Running it in a virtual environment. 
+Here's the tech stack that makes this work:
 
-   1. Downloading and installing _virtualenv_. 
-   ```
-   pip install virtualenv
-   ```
-   
-   2. Create the virtual environment in Python 3.
-   
-   ```
-    virtualenv -p C:\Python37\python.exe test_env
-   ```    
-   
-   3. Activate the test environment.     
-   
-        1. For Windows:
-        ```
-        test_env\Scripts\Activate
-        ```        
-        
-        2. For Unix:
-        ```
-        source test_env/bin/activate
-        ```    
+- **OpenCV** – Does all the heavy lifting for image capture and real-time processing.
+- **imutils** – A handy set of helpers that makes OpenCV a little less painful to work with.
+- **Dlib** – Supplies the facial landmark detection that helps us locate eyes and other features.
+- **scikit-learn** & **NumPy** – Handle the number crunching and any lightweight ML tasks behind the scenes.
 
-1. Install all the required libraries, by installing the requirements.txt file.
+---
 
-    ```
-    pip install -r requirements.txt
-    ```
-    
-1. Run the application.
+## Quick Start Guide
 
-    ```
-    python app.py --shape-predictor shape_predictor.dat --alarm Alert.wav
-    ```
+Get the system up and running on your machine in just a few steps.
 
-## Alogorithm
+**1. Clone the repository**
 
-1. Capture the image of the driver from the camera.
-2. Send the captured image to haarcascade file for face detection.
-3. If the face is detected then crop the image consisting of the face only. If the driver is distracted then a face might not be detected, so play the buzzer.
-4. Send the face image to haarcascade file for eye detection.
-5. If the eyes are detected then crop only the eyes and extract the left and right eye from that image. If both eyes are not found, then the driver is looking sideways, so sound the buzzer.
-6. The cropped eye images are sent to the hough transformations for detecting pupils, which will determine whether they are open or closed.
-7. If they are found to be closed for five continuous frames, then the driver should be alerted by playing the buzzer.
+```bash
+git clone https://github.com/viswanathanganesh24/real-time-driver-alertness-monitoring-system.git
+```
 
+**2. (Optional) Set up a virtual environment**
+
+Keeping dependencies isolated is always a good idea. Here's how:
+
+```bash
+pip install virtualenv
+virtualenv -p python3 env
+```
+
+Activate it:
+
+- **Windows**:  
+  ```bash
+  env\Scripts\activate
+  ```
+- **Linux / Mac**:  
+  ```bash
+  source env/bin/activate
+  ```
+
+**3. Install the required packages**
+
+```bash
+pip install -r requirements.txt
+```
+
+**4. Fire up the monitor**
+
+```bash
+python app.py --shape-predictor shape_predictor.dat --alarm Alert.wav
+```
+
+That's it. Point your webcam at yourself and test it out.
+
+---
+
+## How the Detection Loop Works
+
+Here's what happens inside the main processing loop, frame by frame:
+
+1. **Grab a frame** – The system pulls a live feed from the default camera.
+
+2. **Look for a face** – A Haar cascade classifier scans the frame. If no face is found, the driver is either turned away or distracted—so the buzzer goes off immediately.
+
+3. **Zoom in on the eyes** – Once a face is locked, the system runs a second Haar cascade to locate the eye regions within that face crop.
+
+4. **Check for sideways glances** – If both eyes aren't visible, the system assumes the driver is looking elsewhere (not at the road) and triggers the alarm.
+
+5. **Examine pupil position** – For each detected eye, Hough Circle Transform is used to find the pupil. This tells us whether the eyelid is covering the pupil or if the eye is fully open.
+
+6. **Track state over time** – The open/closed status of each eye is logged for every frame. If the system registers closed eyes for **five consecutive frames**, that's a clear drowsiness signal.
+
+7. **Trigger the alarm** – The moment that threshold is crossed, the audio buzzer (`Alert.wav`) kicks in to warn the driver.
+
+---
+
+## Final Note
+
+This project isn't meant to replace proper rest or safe driving habits—but it can serve as an extra layer of safety for long hauls or late-night drives. Feel free to fork it, tweak it, and make it your own.
